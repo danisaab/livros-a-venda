@@ -5,9 +5,10 @@ const CONFIG = {
 };
 
 function doGet() {
-  return HtmlService.createHtmlOutputFromFile('index')
+  const tpl = HtmlService.createTemplateFromFile('index');
+  tpl.booksJson = getBooks();
+  return tpl.evaluate()
     .setTitle('Livros à Venda')
-    .setSandboxMode(HtmlService.SandboxMode.IFRAME)
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
@@ -19,7 +20,6 @@ function getBooks() {
   const booksData = booksSheet.getDataRange().getValues();
   const reservationsData = reservationsSheet.getDataRange().getValues();
 
-  // Conta reservas ativas por livro
   const queueCount = {};
   if (reservationsData.length > 1) {
     for (let i = 1; i < reservationsData.length; i++) {
@@ -97,7 +97,6 @@ function createReservation(bookId, nome, whatsapp, tipo) {
   }
 }
 
-// Trigger: configurar para rodar todo dia às 12h
 function checkExpiredReservations() {
   const ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
   const booksSheet = ss.getSheetByName(CONFIG.BOOKS_SHEET);
@@ -106,7 +105,6 @@ function checkExpiredReservations() {
   const now = new Date();
   const reservationsData = reservationsSheet.getDataRange().getValues();
 
-  // Expira reservas vencidas
   for (let i = 1; i < reservationsData.length; i++) {
     if (reservationsData[i][7] !== 'ativa') continue;
     if (now >= new Date(reservationsData[i][6])) {
@@ -114,7 +112,6 @@ function checkExpiredReservations() {
     }
   }
 
-  // Recalcula status dos livros
   const updatedReservations = reservationsSheet.getDataRange().getValues();
   const activeByBook = {};
   for (let i = 1; i < updatedReservations.length; i++) {
@@ -135,7 +132,6 @@ function checkExpiredReservations() {
   }
 }
 
-// Roda uma vez para criar o trigger automático de expiração
 function setupTrigger() {
   ScriptApp.getProjectTriggers().forEach(t => ScriptApp.deleteTrigger(t));
   ScriptApp.newTrigger('checkExpiredReservations')
