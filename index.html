@@ -146,13 +146,14 @@
       overflow: hidden;
     }
 
-    .card-cover img {
+    .card-cover img, .cover-img {
       width: 100%; height: 100%;
       object-fit: cover;
       transition: transform .3s;
     }
 
-    .card:hover .card-cover img { transform: scale(1.04); }
+    .card:hover .card-cover img,
+    .card:hover .cover-img { transform: scale(1.04); }
 
     .cover-placeholder,
     .cover-placeholder-fallback {
@@ -453,19 +454,8 @@
 
     var cover;
     if (coverUrl) {
-      var img = document.createElement('img');
-      img.setAttribute('alt', 'Capa de ' + book.titulo);
-      img.setAttribute('loading', 'lazy');
-      img.setAttribute('width', '100%');
-      img.setAttribute('height', '100%');
-      img.style.objectFit = 'cover';
-      img.style.transition = 'transform .3s';
-      img.src = coverUrl;
-      img.onerror = function() {
-        this.style.display = 'none';
-        this.parentElement.classList.add('cover-placeholder-fallback');
-      };
-      cover = img.outerHTML;
+      cover = '<img class="cover-img" alt="Capa de ' + book.titulo.replace(/"/g, '&quot;') +
+        '" loading="lazy" src="' + coverUrl + '">';
     } else {
       cover = '<div class="cover-placeholder">' + ICON_BOOK + '</div>';
     }
@@ -531,6 +521,14 @@
 
     grid.innerHTML = books.map(renderCard).join('');
 
+    var coverImgs = grid.querySelectorAll('.cover-img');
+    for (var ci = 0; ci < coverImgs.length; ci++) {
+      coverImgs[ci].onerror = function() {
+        this.style.display = 'none';
+        this.parentElement.classList.add('cover-placeholder-fallback');
+      };
+    }
+
     var avail = allBooks.filter(function(b) { return b.status === 'Disponível'; }).length;
     var total = allBooks.length;
     document.getElementById('book-count').textContent =
@@ -586,6 +584,11 @@
         '<input class="form-input" id="input-whatsapp" type="tel" placeholder="(11) 99999-9999" autocomplete="tel">' +
       '</div>' +
       '<button class="modal-submit" id="modal-submit-btn" onclick="submitReservation()">' + btnLabel + '</button>';
+
+    var modalCoverImg = document.querySelector('#modal-content .modal-book-cover');
+    if (modalCoverImg && modalCoverImg.tagName === 'IMG') {
+      modalCoverImg.onerror = function() { this.style.display = 'none'; };
+    }
 
     document.getElementById('modal-overlay').classList.add('active');
     setTimeout(function() {
