@@ -162,6 +162,13 @@
       background: linear-gradient(135deg, #F5F0EB 0%, #EDE8E0 100%);
     }
 
+    .cover-placeholder::after,
+    .cover-placeholder-fallback::after {
+      content: '\1F4D6';
+      font-size: 30px;
+      opacity: 0.4;
+    }
+
     .status-badge {
       position: absolute;
       top: 8px; left: 8px;
@@ -457,7 +464,7 @@
       cover = '<img class="cover-img" alt="Capa de ' + book.titulo.replace(/"/g, '&quot;') +
         '" loading="lazy" src="' + coverUrl + '">';
     } else {
-      cover = '<div class="cover-placeholder">' + ICON_BOOK + '</div>';
+      cover = '<div class="cover-placeholder"></div>';
     }
 
     var interestHTML = '';
@@ -523,10 +530,15 @@
 
     var coverImgs = grid.querySelectorAll('.cover-img');
     for (var ci = 0; ci < coverImgs.length; ci++) {
-      coverImgs[ci].onerror = function() {
-        this.style.display = 'none';
-        this.parentElement.classList.add('cover-placeholder-fallback');
-      };
+      (function(img) {
+        img.onerror = function() {
+          this.style.display = 'none';
+          this.parentElement.classList.add('cover-placeholder-fallback');
+        };
+        if (img.complete && img.naturalWidth === 0) {
+          img.onerror();
+        }
+      })(coverImgs[ci]);
     }
 
     var avail = allBooks.filter(function(b) { return b.status === 'Disponível'; }).length;
