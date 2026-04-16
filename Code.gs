@@ -12,6 +12,33 @@ function doGet() {
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
+function fetchCoverUrl(isbn) {
+  if (!isbn) return '';
+  const cache = CacheService.getScriptCache();
+  const key = 'cover_' + isbn;
+  const cached = cache.get(key);
+  if (cached !== null) return cached;
+
+  let url = '';
+  try {
+    const resp = UrlFetchApp.fetch(
+      'https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn +
+      '&fields=items/volumeInfo/imageLinks&maxResults=1',
+      { muteHttpExceptions: true }
+    );
+    if (resp.getResponseCode() === 200) {
+      const data = JSON.parse(resp.getContentText());
+      const links = data.items && data.items[0] &&
+                    data.items[0].volumeInfo && data.items[0].volumeInfo.imageLinks;
+      const raw = links && (links.thumbnail || links.smallThumbnail);
+      if (raw) url = raw.replace('http://', 'https://').replace('zoom=1', 'zoom=2');
+    }
+  } catch (e) {}
+
+  cache.put(key, url, 21600);
+  return url;
+}
+
 function getBooks() {
   const ss = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID);
   const booksSheet = ss.getSheetByName(CONFIG.BOOKS_SHEET);
@@ -35,14 +62,16 @@ function getBooks() {
   for (let i = 1; i < booksData.length; i++) {
     const row = booksData[i];
     if (!row[0]) continue;
+    const isbn = row[5] ? String(row[5]) : '';
+    const capaUrl = row[6] ? String(row[6]) : fetchCoverUrl(isbn);
     books.push({
       id: String(row[0]),
       titulo: row[1],
       autor: row[2],
       preco: row[3],
       status: row[4],
-      isbn: row[5] ? String(row[5]) : '',
-      capaUrl: row[6] || '',
+      isbn: isbn,
+      capaUrl: capaUrl,
       interessados: queueCount[String(row[0])] || 0
     });
   }

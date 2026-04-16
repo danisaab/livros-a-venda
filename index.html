@@ -448,9 +448,7 @@
   }
 
   function getCoverUrl(book) {
-    if (book.capaUrl) return book.capaUrl;
-    if (book.isbn)    return 'https://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg?default=false';
-    return null;
+    return book.capaUrl || null;
   }
 
   function renderCard(book) {
@@ -512,33 +510,6 @@
     '</article>';
   }
 
-  function showCoverFallback(img) {
-    img.style.display = 'none';
-    img.parentElement.classList.add('cover-placeholder-fallback');
-  }
-
-  function fetchGoogleBooksCover(img, isbn) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn + '&fields=items/volumeInfo/imageLinks&maxResults=1', true);
-    xhr.onload = function() {
-      try {
-        var data = JSON.parse(this.responseText);
-        var links = data.items && data.items[0] && data.items[0].volumeInfo && data.items[0].volumeInfo.imageLinks;
-        var url = links && (links.thumbnail || links.smallThumbnail);
-        if (url) {
-          img.onerror = function() { showCoverFallback(this); };
-          img.src = url.replace('http://', 'https://');
-        } else {
-          showCoverFallback(img);
-        }
-      } catch (e) {
-        showCoverFallback(img);
-      }
-    };
-    xhr.onerror = function() { showCoverFallback(img); };
-    xhr.send();
-  }
-
   function renderGrid() {
     var grid = document.getElementById('books-grid');
     var books = currentFilter === 'all'
@@ -555,24 +526,12 @@
 
     grid.innerHTML = books.map(renderCard).join('');
 
-    var isbnByOlUrl = {};
-    for (var bi = 0; bi < books.length; bi++) {
-      if (books[bi].isbn) {
-        var olUrl = 'https://covers.openlibrary.org/b/isbn/' + books[bi].isbn + '-M.jpg?default=false';
-        isbnByOlUrl[olUrl] = books[bi].isbn;
-      }
-    }
-
     var coverImgs = grid.querySelectorAll('.cover-img');
     for (var ci = 0; ci < coverImgs.length; ci++) {
       (function(img) {
         img.onerror = function() {
-          var isbn = isbnByOlUrl[this.src];
-          if (isbn) {
-            fetchGoogleBooksCover(img, isbn);
-          } else {
-            showCoverFallback(img);
-          }
+          this.style.display = 'none';
+          this.parentElement.classList.add('cover-placeholder-fallback');
         };
         if (img.complete && img.naturalWidth === 0) {
           img.onerror();
