@@ -449,7 +449,7 @@
 
   function getCoverUrl(book) {
     if (book.capaUrl) return book.capaUrl;
-    if (book.isbn)    return 'https://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg';
+    if (book.isbn)    return 'https://covers.openlibrary.org/b/isbn/' + book.isbn + '-M.jpg?default=false';
     return null;
   }
 
