@@ -491,9 +491,8 @@
     const isAvail   = book.status === 'Disponível';
 
     const cover = coverUrl
-      ? `<img src="${coverUrl}" alt="Capa de ${book.titulo}" loading="lazy"
-             onerror="this.style.display='none';this.parentElement.classList.add('cover-placeholder-fallback')">`
-      : `<div class="cover-placeholder">${ICONS.book}</div>`;
+      ? '<img src="' + coverUrl + '" alt="Capa de ' + book.titulo + '" loading="lazy" onerror="this.style.display=\'none\';this.parentElement.classList.add(\'cover-placeholder-fallback\')">'
+      : '<div class="cover-placeholder">' + ICONS.book + '</div>';
 
     const interestHTML = book.interessados > 0
       ? `<span class="interested-count" title="${book.interessados} ${book.interessados === 1 ? 'pessoa interessada' : 'pessoas interessadas'}">
@@ -567,8 +566,8 @@
 
     const coverUrl = getCoverUrl(selectedBook);
     const coverImg = coverUrl
-      ? `<img class="modal-book-cover" src="${coverUrl}" alt="" onerror="this.style.display='none'">`
-      : `<div class="modal-book-cover" style="display:flex;align-items:center;justify-content:center;background:var(--bg)">${ICONS.book}</div>`;
+      ? '<img class="modal-book-cover" src="' + coverUrl + '" alt="" onerror="this.style.display=\'none\'">'
+      : '<div class="modal-book-cover" style="display:flex;align-items:center;justify-content:center;background:var(--bg)">' + ICONS.book + '</div>';
 
     const labels = {
       Comprar:  { action: 'Comprando',        title: 'Tenho interesse em comprar', btn: 'Confirmar interesse' },

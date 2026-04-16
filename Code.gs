@@ -7,6 +7,7 @@ const CONFIG = {
 function doGet() {
   return HtmlService.createHtmlOutputFromFile('index')
     .setTitle('Livros à Venda')
+    .setSandboxMode(HtmlService.SandboxMode.IFRAME)
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
