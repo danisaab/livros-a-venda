@@ -528,12 +528,29 @@
 
     grid.innerHTML = books.map(renderCard).join('');
 
+    var gbFallback = {};
+    for (var bi = 0; bi < books.length; bi++) {
+      if (books[bi].isbn) {
+        var olUrl = 'https://covers.openlibrary.org/b/isbn/' + books[bi].isbn + '-M.jpg?default=false';
+        gbFallback[olUrl] = 'https://books.google.com/books/content?vid=ISBN:' + books[bi].isbn + '&printsec=frontcover&img=1&zoom=1';
+      }
+    }
+
     var coverImgs = grid.querySelectorAll('.cover-img');
     for (var ci = 0; ci < coverImgs.length; ci++) {
       (function(img) {
         img.onerror = function() {
-          this.style.display = 'none';
-          this.parentElement.classList.add('cover-placeholder-fallback');
+          var gb = gbFallback[this.src];
+          if (gb) {
+            this.onerror = function() {
+              this.style.display = 'none';
+              this.parentElement.classList.add('cover-placeholder-fallback');
+            };
+            this.src = gb;
+          } else {
+            this.style.display = 'none';
+            this.parentElement.classList.add('cover-placeholder-fallback');
+          }
         };
         if (img.complete && img.naturalWidth === 0) {
           img.onerror();
