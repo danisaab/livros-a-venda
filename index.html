@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Livros à Venda</title>
+  <title>Acervo de Daniel & Bianca</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -65,10 +65,9 @@
     .filters {
       padding: 14px 20px;
       display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
       gap: 8px;
-      overflow-x: auto;
-      scrollbar-width: none;
-      -webkit-overflow-scrolling: touch;
     }
 
     .filters::-webkit-scrollbar { display: none; }
@@ -186,9 +185,10 @@
     .card-price { font-size: 15px; font-weight: 700; }
 
     .interested-count {
-      font-size: 11px; color: var(--text-secondary);
+      font-size: 11px; color: #C2410C;
       display: flex; align-items: center; gap: 3px;
       white-space: nowrap;
+      font-weight: 600;
     }
 
     .card-actions { display: flex; gap: 6px; margin-top: 4px; }
@@ -201,10 +201,10 @@
       white-space: nowrap;
     }
 
-    .btn-primary   { background: var(--text-primary); color: white; }
-    .btn-primary:hover { background: #44403C; }
-    .btn-secondary { background: var(--bg); color: var(--text-primary); border: 1.5px solid var(--border); }
-    .btn-secondary:hover { border-color: var(--text-primary); }
+    .btn-primary   { background: #C2410C; color: white; border: 1.5px solid transparent; }
+    .btn-primary:hover { background: #9A3412; }
+    .btn-secondary { background: transparent; color: #C2410C; border: 1.5px solid #C2410C; }
+    .btn-secondary:hover { background: #FFF7ED; }
     .btn-queue     { background: var(--amber-bg); color: var(--amber-text); border: 1.5px solid #FDE68A; }
     .btn-queue:hover { background: #FDE68A; }
     .btn-disabled  { background: var(--gray-bg); color: var(--gray-text); cursor: default; }
@@ -370,14 +370,14 @@
 <body>
 
 <header class="header">
-  <p class="header-eyebrow">Acervo pessoal</p>
-  <h1>Livros à Venda</h1>
+  <p class="header-eyebrow">Livros à Venda</p>
+  <h1>Acervo de Daniel & Bianca</h1>
   <p class="header-sub" id="book-count">&nbsp;</p>
 </header>
 
 <nav class="filters" role="tablist" aria-label="Filtrar por status">
-  <button class="filter-btn active" data-filter="Disponível" role="tab" aria-selected="true">Disponíveis</button>
-  <button class="filter-btn" data-filter="all"       role="tab" aria-selected="false">Todos</button>
+  <button class="filter-btn" data-filter="Disponível" role="tab" aria-selected="false">Disponíveis</button>
+  <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">Todos</button>
   <button class="filter-btn" data-filter="Reservado" role="tab" aria-selected="false">Reservados</button>
   <button class="filter-btn" data-filter="Vendido"   role="tab" aria-selected="false">Vendidos</button>
 </nav>
@@ -406,7 +406,7 @@
   };
 
   var allBooks      = [];
-  var currentFilter = 'Disponível';
+  var currentFilter = 'all';
   var selectedBook  = null;
   var selectedTipo  = null;
 
@@ -425,7 +425,7 @@
 
     var interestHtml = '';
     if (book.interessados > 0) {
-      var icon = book.interessados >= 3 ? '🔥' : '👥';
+      var icon = book.interessados >= 3 ? '❤️‍🔥' : '👀';
       var word = book.interessados === 1 ? 'interesse' : 'interesses';
       interestHtml = '<span class="interested-count">' + icon + ' ' + book.interessados + ' ' + word + '</span>';
     }
