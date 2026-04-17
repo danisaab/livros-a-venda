@@ -1,15 +1,25 @@
 const CONFIG = {
-  SPREADSHEET_ID: 'SEU_ID_AQUI', // Substitua pelo ID da sua planilha
+  SPREADSHEET_ID: 'SEU_ID_AQUI',
   BOOKS_SHEET: 'Livros',
   RESERVATIONS_SHEET: 'Reservas'
 };
 
 function doGet() {
-  const tpl = HtmlService.createTemplateFromFile('index');
-  tpl.booksJson = getBooks();
-  return tpl.evaluate()
-    .setTitle('Livros à Venda')
-    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+  const output = ContentService.createTextOutput(getBooks())
+    .setMimeType(ContentService.MimeType.JSON);
+  return output;
+}
+
+function doPost(e) {
+  try {
+    const data = JSON.parse(e.postData.contents);
+    const result = createReservation(data.bookId, data.nome, data.whatsapp, data.tipo);
+    return ContentService.createTextOutput(result)
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ success: false, error: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
 }
 
 function fetchCoverUrl(isbn) {

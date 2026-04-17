@@ -14,24 +14,20 @@
       --text-primary:    #1C1917;
       --text-secondary:  #78716C;
       --text-tertiary:   #A8A29E;
-
-      --green-bg:   #DCFCE7;
-      --green-text: #15803D;
-      --amber-bg:   #FEF3C7;
-      --amber-text: #B45309;
-      --gray-bg:    #F1F5F9;
-      --gray-text:  #64748B;
-      --red-bg:     #FEE2E2;
-      --red-text:   #B91C1C;
-
-      --radius-sm:   6px;
-      --radius-md:   12px;
-      --radius-lg:   16px;
-      --radius-full: 999px;
-
-      --shadow-sm: 0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
-      --shadow-md: 0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
-      --shadow-lg: 0 20px 60px rgba(0,0,0,.12), 0 8px 24px rgba(0,0,0,.06);
+      --green-bg:        #DCFCE7;
+      --green-text:      #15803D;
+      --amber-bg:        #FEF3C7;
+      --amber-text:      #B45309;
+      --gray-bg:         #F1F5F9;
+      --gray-text:       #64748B;
+      --red-bg:          #FEE2E2;
+      --red-text:        #B91C1C;
+      --radius-sm:       6px;
+      --radius-md:       12px;
+      --radius-lg:       16px;
+      --radius-full:     999px;
+      --shadow-sm:       0 1px 3px rgba(0,0,0,.06), 0 1px 2px rgba(0,0,0,.04);
+      --shadow-md:       0 4px 16px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.04);
     }
 
     body {
@@ -62,17 +58,9 @@
       margin-bottom: 4px;
     }
 
-    .header h1 {
-      font-size: 22px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
+    .header h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
 
-    .header-sub {
-      font-size: 13px;
-      color: var(--text-secondary);
-      min-height: 18px;
-    }
+    .header-sub { font-size: 13px; color: var(--text-secondary); min-height: 18px; }
 
     .filters {
       padding: 14px 20px;
@@ -101,12 +89,7 @@
     }
 
     .filter-btn:hover { border-color: var(--text-primary); color: var(--text-primary); }
-
-    .filter-btn.active {
-      background: var(--text-primary);
-      border-color: var(--text-primary);
-      color: white;
-    }
+    .filter-btn.active { background: var(--text-primary); border-color: var(--text-primary); color: white; }
 
     .grid {
       padding: 4px 14px 40px;
@@ -146,14 +129,14 @@
       overflow: hidden;
     }
 
-    .card-cover img, .cover-img {
+    .card-cover img {
       width: 100%; height: 100%;
       object-fit: cover;
       transition: transform .3s;
+      display: block;
     }
 
-    .card:hover .card-cover img,
-    .card:hover .cover-img { transform: scale(1.04); }
+    .card:hover .card-cover img { transform: scale(1.04); }
 
     .cover-placeholder,
     .cover-placeholder-fallback {
@@ -178,8 +161,6 @@
       font-size: 10px; font-weight: 700;
       letter-spacing: .03em;
     }
-
-    .status-badge svg { width: 11px; height: 11px; flex-shrink: 0; }
 
     .badge-disponivel { background: var(--green-bg); color: var(--green-text); }
     .badge-reservado  { background: var(--amber-bg);  color: var(--amber-text); }
@@ -210,8 +191,6 @@
       white-space: nowrap;
     }
 
-    .interested-count svg { width: 12px; height: 12px; flex-shrink: 0; }
-
     .card-actions { display: flex; gap: 6px; margin-top: 4px; }
 
     .btn {
@@ -224,13 +203,10 @@
 
     .btn-primary   { background: var(--text-primary); color: white; }
     .btn-primary:hover { background: #44403C; }
-
     .btn-secondary { background: var(--bg); color: var(--text-primary); border: 1.5px solid var(--border); }
     .btn-secondary:hover { border-color: var(--text-primary); }
-
     .btn-queue     { background: var(--amber-bg); color: var(--amber-text); border: 1.5px solid #FDE68A; }
     .btn-queue:hover { background: #FDE68A; }
-
     .btn-disabled  { background: var(--gray-bg); color: var(--gray-text); cursor: default; }
 
     .modal-overlay {
@@ -245,9 +221,7 @@
 
     .modal-overlay.active { opacity: 1; pointer-events: all; }
 
-    @media (min-width: 480px) {
-      .modal-overlay { align-items: center; }
-    }
+    @media (min-width: 480px) { .modal-overlay { align-items: center; } }
 
     .modal {
       background: var(--surface);
@@ -304,26 +278,12 @@
     }
 
     .modal-book-meta { display: flex; flex-direction: column; justify-content: center; gap: 2px; min-width: 0; }
-
-    .modal-book-action {
-      font-size: 10px; font-weight: 700;
-      text-transform: uppercase; letter-spacing: .08em;
-      color: var(--text-tertiary); margin-bottom: 2px;
-    }
-
-    .modal-book-title {
-      font-size: 14px; font-weight: 600; line-height: 1.3;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-
+    .modal-book-action { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-tertiary); margin-bottom: 2px; }
+    .modal-book-title { font-size: 14px; font-weight: 600; line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .modal-book-author { font-size: 12px; color: var(--text-secondary); }
 
     .modal h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
-
-    .modal-subtitle {
-      font-size: 13px; color: var(--text-secondary); line-height: 1.55;
-      margin-bottom: 20px;
-    }
+    .modal-subtitle { font-size: 13px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 20px; }
 
     .form-group { margin-bottom: 14px; }
 
@@ -365,12 +325,10 @@
       background: var(--green-bg); border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       margin: 0 auto 16px;
+      font-size: 26px;
     }
 
-    .success-icon svg { width: 26px; height: 26px; color: var(--green-text); }
-
     .modal-success h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
-
     .modal-success p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
 
     .expiry-chip {
@@ -380,8 +338,6 @@
       font-size: 12px; color: var(--amber-text); font-weight: 500;
       text-align: left;
     }
-
-    .expiry-chip svg { width: 14px; height: 14px; flex-shrink: 0; }
 
     .btn-close-success {
       margin-top: 20px; width: 100%; padding: 12px;
@@ -393,11 +349,22 @@
 
     .btn-close-success:hover { border-color: var(--text-primary); }
 
-    .empty-state {
+    .loading, .empty-state {
       grid-column: 1 / -1; text-align: center;
       padding: 72px 20px; color: var(--text-tertiary);
       font-size: 14px;
     }
+
+    .spinner {
+      width: 22px; height: 22px;
+      border: 2px solid var(--border);
+      border-top-color: var(--text-primary);
+      border-radius: 50%;
+      animation: spin .65s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
@@ -410,35 +377,35 @@
 
 <nav class="filters" role="tablist" aria-label="Filtrar por status">
   <button class="filter-btn active" data-filter="Disponível" role="tab" aria-selected="true">Disponíveis</button>
-  <button class="filter-btn" data-filter="all"        role="tab" aria-selected="false">Todos</button>
-  <button class="filter-btn" data-filter="Reservado"  role="tab" aria-selected="false">Reservados</button>
-  <button class="filter-btn" data-filter="Vendido"    role="tab" aria-selected="false">Vendidos</button>
+  <button class="filter-btn" data-filter="all"       role="tab" aria-selected="false">Todos</button>
+  <button class="filter-btn" data-filter="Reservado" role="tab" aria-selected="false">Reservados</button>
+  <button class="filter-btn" data-filter="Vendido"   role="tab" aria-selected="false">Vendidos</button>
 </nav>
 
-<main class="grid" id="books-grid" role="main"></main>
+<main class="grid" id="books-grid" role="main">
+  <div class="loading">
+    <div class="spinner"></div>
+    Carregando livros…
+  </div>
+</main>
 
 <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-  <div class="modal" id="modal">
+  <div class="modal">
     <div class="modal-handle" aria-hidden="true"></div>
     <div class="modal-inner" id="modal-content"></div>
   </div>
 </div>
 
 <script>
-  var ICON_CHECK  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
-  var ICON_CLOCK  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>';
-  var ICON_X      = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
-  var ICON_BOOK   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:40px;height:40px;color:#C4B9AE"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>';
-  var ICON_PEOPLE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>';
-  var ICON_FIRE   = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>';
+  var SCRIPT_URL = 'COLE_AQUI_A_URL_DO_APPS_SCRIPT';
 
   var STATUS_CFG = {
-    'Disponível': { label: 'Disponível', cls: 'badge-disponivel', icon: ICON_CHECK },
-    'Reservado':  { label: 'Reservado',  cls: 'badge-reservado',  icon: ICON_CLOCK },
-    'Vendido':    { label: 'Vendido',    cls: 'badge-vendido',    icon: ICON_X     }
+    'Disponível': { label: 'Disponível', cls: 'badge-disponivel', icon: '✓' },
+    'Reservado':  { label: 'Reservado',  cls: 'badge-reservado',  icon: '◷' },
+    'Vendido':    { label: 'Vendido',    cls: 'badge-vendido',    icon: '✕' }
   };
 
-  var allBooks      = <?!= booksJson ?>;
+  var allBooks      = [];
   var currentFilter = 'Disponível';
   var selectedBook  = null;
   var selectedTipo  = null;
@@ -447,32 +414,20 @@
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(p);
   }
 
-  function getCoverUrl(book) {
-    return book.capaUrl || null;
-  }
-
   function renderCard(book) {
-    var cfg      = STATUS_CFG[book.status] || STATUS_CFG['Disponível'];
-    var coverUrl = getCoverUrl(book);
-    var isSold   = book.status === 'Vendido';
-    var isAvail  = book.status === 'Disponível';
+    var cfg    = STATUS_CFG[book.status] || STATUS_CFG['Disponível'];
+    var isSold = book.status === 'Vendido';
+    var isAvail = book.status === 'Disponível';
 
-    var cover;
-    if (coverUrl) {
-      cover = '<img class="cover-img" alt="Capa de ' + book.titulo.replace(/"/g, '&quot;') +
-        '" loading="lazy" src="' + coverUrl + '">';
-    } else {
-      cover = '<div class="cover-placeholder"></div>';
-    }
+    var coverHtml = book.capaUrl
+      ? '<img src="' + book.capaUrl + '" alt="Capa de ' + book.titulo.replace(/"/g, '&quot;') + '" loading="lazy" class="cover-img">'
+      : '<div class="cover-placeholder"></div>';
 
-    var interestHTML = '';
+    var interestHtml = '';
     if (book.interessados > 0) {
-      var interestIcon = book.interessados >= 3 ? ICON_FIRE : ICON_PEOPLE;
-      var interestWord = book.interessados === 1 ? 'interesse' : 'interesses';
-      var interestTitle = book.interessados + ' ' + (book.interessados === 1 ? 'pessoa interessada' : 'pessoas interessadas');
-      interestHTML = '<span class="interested-count" title="' + interestTitle + '">' +
-        interestIcon + ' ' + book.interessados + ' ' + interestWord +
-        '</span>';
+      var icon = book.interessados >= 3 ? '🔥' : '👥';
+      var word = book.interessados === 1 ? 'interesse' : 'interesses';
+      interestHtml = '<span class="interested-count">' + icon + ' ' + book.interessados + ' ' + word + '</span>';
     }
 
     var actions;
@@ -491,19 +446,17 @@
         '</div>';
     }
 
-    return '<article class="card' + (isSold ? ' sold' : '') + '" aria-label="' + book.titulo + '">' +
+    return '<article class="card' + (isSold ? ' sold' : '') + '">' +
       '<div class="card-cover">' +
-        cover +
-        '<div class="status-badge ' + cfg.cls + '" aria-label="Status: ' + cfg.label + '">' +
-          cfg.icon + ' ' + cfg.label +
-        '</div>' +
+        coverHtml +
+        '<div class="status-badge ' + cfg.cls + '">' + cfg.icon + ' ' + cfg.label + '</div>' +
       '</div>' +
       '<div class="card-body">' +
         '<div class="card-title">' + book.titulo + '</div>' +
         '<div class="card-author">' + book.autor + '</div>' +
         '<div class="card-footer">' +
           '<div class="card-price">' + formatPrice(book.preco) + '</div>' +
-          interestHTML +
+          interestHtml +
         '</div>' +
         actions +
       '</div>' +
@@ -517,26 +470,18 @@
       : allBooks.filter(function(b) { return b.status === currentFilter; });
 
     if (books.length === 0) {
-      grid.innerHTML = '<div class="empty-state">' +
-        ICON_BOOK +
-        '<p style="margin-top:12px">Nenhum livro nessa categoria</p>' +
-        '</div>';
+      grid.innerHTML = '<div class="empty-state"><p>Nenhum livro nessa categoria</p></div>';
       return;
     }
 
     grid.innerHTML = books.map(renderCard).join('');
 
-    var coverImgs = grid.querySelectorAll('.cover-img');
-    for (var ci = 0; ci < coverImgs.length; ci++) {
-      (function(img) {
-        img.onerror = function() {
-          this.style.display = 'none';
-          this.parentElement.classList.add('cover-placeholder-fallback');
-        };
-        if (img.complete && img.naturalWidth === 0) {
-          img.onerror();
-        }
-      })(coverImgs[ci]);
+    var imgs = grid.querySelectorAll('.cover-img');
+    for (var i = 0; i < imgs.length; i++) {
+      imgs[i].onerror = function() {
+        this.style.display = 'none';
+        this.parentElement.classList.add('cover-placeholder-fallback');
+      };
     }
 
     var avail = allBooks.filter(function(b) { return b.status === 'Disponível'; }).length;
@@ -546,19 +491,14 @@
   }
 
   function openModal(bookId, tipo) {
-    selectedBook = null;
     for (var i = 0; i < allBooks.length; i++) {
       if (allBooks[i].id === bookId) { selectedBook = allBooks[i]; break; }
     }
     selectedTipo = tipo;
 
-    var coverUrl = getCoverUrl(selectedBook);
-    var coverImg;
-    if (coverUrl) {
-      coverImg = '<img class="modal-book-cover" src="' + coverUrl + '" alt="">';
-    } else {
-      coverImg = '<div class="modal-book-cover" style="display:flex;align-items:center;justify-content:center;background:var(--bg)">' + ICON_BOOK + '</div>';
-    }
+    var coverHtml = selectedBook.capaUrl
+      ? '<img class="modal-book-cover" src="' + selectedBook.capaUrl + '" alt="" onerror="this.style.display=\'none\'">'
+      : '<div class="modal-book-cover" style="display:flex;align-items:center;justify-content:center;font-size:20px">📖</div>';
 
     var actionLabel, titleLabel, btnLabel;
     if (tipo === 'Comprar') {
@@ -570,13 +510,13 @@
     }
 
     var subtitle = tipo === 'Fila'
-      ? 'Este livro já está reservado. Deixe seu contato e eu te aviso quando ele estiver disponível.'
-      : 'Deixe seu contato e eu entro em contato com você pelo WhatsApp em breve.';
+      ? 'Este livro já está reservado. Deixe seu contato e eu te aviso quando estiver disponível.'
+      : 'Deixe seu contato e eu entro em contato pelo WhatsApp em breve.';
 
     document.getElementById('modal-content').innerHTML =
       '<button class="modal-close" onclick="closeModal()" aria-label="Fechar">\xD7</button>' +
       '<div class="modal-book-info">' +
-        coverImg +
+        coverHtml +
         '<div class="modal-book-meta">' +
           '<div class="modal-book-action">' + actionLabel + '</div>' +
           '<div class="modal-book-title">' + selectedBook.titulo + '</div>' +
@@ -594,11 +534,6 @@
         '<input class="form-input" id="input-whatsapp" type="tel" placeholder="(11) 99999-9999" autocomplete="tel">' +
       '</div>' +
       '<button class="modal-submit" id="modal-submit-btn" onclick="submitReservation()">' + btnLabel + '</button>';
-
-    var modalCoverImg = document.querySelector('#modal-content .modal-book-cover');
-    if (modalCoverImg && modalCoverImg.tagName === 'IMG') {
-      modalCoverImg.onerror = function() { this.style.display = 'none'; };
-    }
 
     document.getElementById('modal-overlay').classList.add('active');
     setTimeout(function() {
@@ -627,59 +562,64 @@
     btn.disabled    = true;
     btn.textContent = 'Enviando\u2026';
 
-    google.script.run
-      .withSuccessHandler(function(r) {
-        var result = JSON.parse(r);
-        if (result.success) {
-          var expiry    = new Date(result.expiraEm);
-          var expiryStr = expiry.toLocaleDateString('pt-BR', {
-            weekday: 'long', day: 'numeric', month: 'long'
-          }) + ' às 12h';
-
-          var msgTitle, msgBody;
-          if (selectedTipo === 'Comprar') {
-            msgTitle = 'Interesse registrado!';
-            msgBody  = 'Recebi seu interesse! Vou entrar em contato com você em breve pelo WhatsApp.';
-          } else if (selectedTipo === 'Reservar') {
-            msgTitle = 'Reserva confirmada!';
-            msgBody  = 'Sua reserva está feita. Vou entrar em contato pelo WhatsApp em breve.';
-          } else {
-            msgTitle = 'Você entrou na fila!';
-            msgBody  = 'Anota aí: vou te contatar assim que o livro estiver disponível.';
-          }
-
-          var expiryBlock = selectedTipo !== 'Fila'
-            ? '<div class="expiry-chip">' + ICON_CLOCK + ' Válido até ' + expiryStr + '</div>'
-            : '';
-
-          document.getElementById('modal-content').innerHTML =
-            '<div class="modal-success">' +
-              '<div class="success-icon">' + ICON_CHECK + '</div>' +
-              '<h3>' + msgTitle + '</h3>' +
-              '<p>' + msgBody + '</p>' +
-              expiryBlock +
-              '<button class="btn-close-success" onclick="closeModal()">Fechar</button>' +
-            '</div>';
-
-          google.script.run
-            .withSuccessHandler(function(data) {
-              allBooks = JSON.parse(data);
-              renderGrid();
-            })
-            .getBooks();
-
-        } else {
-          btn.disabled    = false;
-          btn.textContent = 'Tentar novamente';
-          alert(result.error || 'Algo deu errado. Tente novamente.');
-        }
-      })
-      .withFailureHandler(function(e) {
-        btn.disabled    = false;
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ bookId: selectedBook.id, nome: nome, whatsapp: whatsapp, tipo: selectedTipo })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(result) {
+      if (result.success) {
+        showSuccess(result.expiraEm);
+        loadBooks();
+      } else {
+        btn.disabled = false;
         btn.textContent = 'Tentar novamente';
-        alert(e.message || 'Algo deu errado. Tente novamente.');
+        alert(result.error || 'Algo deu errado. Tente novamente.');
+      }
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.textContent = 'Tentar novamente';
+      alert('Erro de conexão. Tente novamente.');
+    });
+  }
+
+  function showSuccess(expiraEmISO) {
+    var msgs = {
+      Comprar:  { title: 'Interesse registrado!', body: 'Recebi seu interesse! Vou entrar em contato em breve pelo WhatsApp.' },
+      Reservar: { title: 'Reserva confirmada!',   body: 'Sua reserva está feita. Vou entrar em contato pelo WhatsApp em breve.' },
+      Fila:     { title: 'Você entrou na fila!',  body: 'Vou te contatar assim que o livro estiver disponível.' }
+    };
+    var msg = msgs[selectedTipo];
+
+    var expiryBlock = '';
+    if (selectedTipo !== 'Fila' && expiraEmISO) {
+      var expiry = new Date(expiraEmISO);
+      var expiryStr = expiry.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }) + ' às 12h';
+      expiryBlock = '<div class="expiry-chip">⏰ Válido até ' + expiryStr + '</div>';
+    }
+
+    document.getElementById('modal-content').innerHTML =
+      '<div class="modal-success">' +
+        '<div class="success-icon">✓</div>' +
+        '<h3>' + msg.title + '</h3>' +
+        '<p>' + msg.body + '</p>' +
+        expiryBlock +
+        '<button class="btn-close-success" onclick="closeModal()">Fechar</button>' +
+      '</div>';
+  }
+
+  function loadBooks() {
+    fetch(SCRIPT_URL)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        allBooks = data;
+        renderGrid();
       })
-      .createReservation(selectedBook.id, nome, whatsapp, selectedTipo);
+      .catch(function() {
+        document.getElementById('books-grid').innerHTML =
+          '<div class="empty-state"><p>Erro ao carregar. <a href="" onclick="location.reload();return false;">Recarregar</a></p></div>';
+      });
   }
 
   document.querySelectorAll('.filter-btn').forEach(function(btn) {
@@ -703,7 +643,7 @@
     if (e.key === 'Escape') closeModal();
   });
 
-  renderGrid();
+  loadBooks();
 </script>
 </body>
 </html>
