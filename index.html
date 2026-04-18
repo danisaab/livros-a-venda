@@ -90,6 +90,29 @@
     .filter-btn:hover { border-color: var(--text-primary); color: var(--text-primary); }
     .filter-btn.active { background: var(--text-primary); border-color: var(--text-primary); color: white; }
 
+    .search-wrap {
+      padding: 0 20px 14px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .search-input {
+      width: 100%;
+      max-width: 420px;
+      padding: 9px 14px 9px 36px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-full);
+      background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E") no-repeat 12px center;
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text-primary);
+      transition: border-color .15s;
+      outline: none;
+    }
+
+    .search-input::placeholder { color: var(--text-secondary); }
+    .search-input:focus { border-color: var(--text-primary); }
+
     .grid {
       padding: 4px 14px 40px;
       display: grid;
@@ -382,6 +405,10 @@
   <button class="filter-btn" data-filter="Vendido"   role="tab" aria-selected="false">Vendidos</button>
 </nav>
 
+<div class="search-wrap">
+  <input class="search-input" id="search-input" type="search" placeholder="Buscar por título ou autor…" aria-label="Buscar livros">
+</div>
+
 <main class="grid" id="books-grid" role="main">
   <div class="loading">
     <div class="spinner"></div>
@@ -407,8 +434,13 @@
 
   var allBooks      = [];
   var currentFilter = 'all';
+  var currentSearch = '';
   var selectedBook  = null;
   var selectedTipo  = null;
+
+  function normalize(s) {
+    return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
 
   function formatPrice(p) {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(p);
@@ -468,6 +500,14 @@
     var books = currentFilter === 'all'
       ? allBooks
       : allBooks.filter(function(b) { return b.status === currentFilter; });
+
+    if (currentSearch) {
+      var q = normalize(currentSearch);
+      books = books.filter(function(b) {
+        return normalize(b.titulo).indexOf(q) !== -1 ||
+               normalize(b.autor).indexOf(q) !== -1;
+      });
+    }
 
     if (books.length === 0) {
       grid.innerHTML = '<div class="empty-state"><p>Nenhum livro nessa categoria</p></div>';
@@ -642,6 +682,11 @@
       currentFilter = btn.dataset.filter;
       renderGrid();
     });
+  });
+
+  document.getElementById('search-input').addEventListener('input', function() {
+    currentSearch = this.value.trim();
+    renderGrid();
   });
 
   document.getElementById('modal-overlay').addEventListener('click', function(e) {
