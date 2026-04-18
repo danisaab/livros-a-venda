@@ -1,5 +1,5 @@
 const CONFIG = {
-  SPREADSHEET_ID: 'SEU_ID_AQUI',
+  SPREADSHEET_ID: '1DUyoAGXUi-hVVIUChya5IfYacm9uHAaatHO2co9yP-0',
   BOOKS_SHEET: 'Livros',
   RESERVATIONS_SHEET: 'Reservas'
 };
