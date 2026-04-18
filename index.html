@@ -562,25 +562,18 @@
     btn.disabled    = true;
     btn.textContent = 'Enviando\u2026';
 
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      body: JSON.stringify({ bookId: selectedBook.id, nome: nome, whatsapp: whatsapp, tipo: selectedTipo })
-    })
-    .then(function(r) { return r.json(); })
-    .then(function(result) {
-      if (result.success) {
-        showSuccess(result.expiraEm);
-        loadBooks();
-      } else {
+    var payload = encodeURIComponent(JSON.stringify({
+      bookId: selectedBook.id, nome: nome, whatsapp: whatsapp, tipo: selectedTipo
+    }));
+    jsonp(SCRIPT_URL + '?action=reserve&data=' + payload, function(err, result) {
+      if (err || !result || !result.success) {
         btn.disabled = false;
         btn.textContent = 'Tentar novamente';
-        alert(result.error || 'Algo deu errado. Tente novamente.');
+        alert((result && result.error) || 'Algo deu errado. Tente novamente.');
+        return;
       }
-    })
-    .catch(function() {
-      btn.disabled = false;
-      btn.textContent = 'Tentar novamente';
-      alert('Erro de conexão. Tente novamente.');
+      showSuccess(result.expiraEm);
+      loadBooks();
     });
   }
 
@@ -609,17 +602,33 @@
       '</div>';
   }
 
+  function jsonp(url, callback) {
+    var cbName = '__cb' + Date.now();
+    var script = document.createElement('script');
+    window[cbName] = function(data) {
+      delete window[cbName];
+      if (script.parentNode) script.parentNode.removeChild(script);
+      callback(null, data);
+    };
+    script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + cbName;
+    script.onerror = function() {
+      delete window[cbName];
+      if (script.parentNode) script.parentNode.removeChild(script);
+      callback(new Error('failed'));
+    };
+    document.head.appendChild(script);
+  }
+
   function loadBooks() {
-    fetch(SCRIPT_URL)
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        allBooks = data;
-        renderGrid();
-      })
-      .catch(function() {
+    jsonp(SCRIPT_URL, function(err, data) {
+      if (err) {
         document.getElementById('books-grid').innerHTML =
           '<div class="empty-state"><p>Erro ao carregar. <a href="" onclick="location.reload();return false;">Recarregar</a></p></div>';
-      });
+        return;
+      }
+      allBooks = data;
+      renderGrid();
+    });
   }
 
   document.querySelectorAll('.filter-btn').forEach(function(btn) {

@@ -4,22 +4,23 @@ const CONFIG = {
   RESERVATIONS_SHEET: 'Reservas'
 };
 
-function doGet() {
-  const output = ContentService.createTextOutput(getBooks())
-    .setMimeType(ContentService.MimeType.JSON);
-  return output;
-}
+function doGet(e) {
+  const cb = e && e.parameter && e.parameter.callback;
+  let json;
 
-function doPost(e) {
-  try {
-    const data = JSON.parse(e.postData.contents);
-    const result = createReservation(data.bookId, data.nome, data.whatsapp, data.tipo);
-    return ContentService.createTextOutput(result)
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch (err) {
-    return ContentService.createTextOutput(JSON.stringify({ success: false, error: err.toString() }))
-      .setMimeType(ContentService.MimeType.JSON);
+  if (e && e.parameter && e.parameter.action === 'reserve') {
+    const data = JSON.parse(decodeURIComponent(e.parameter.data || '{}'));
+    json = createReservation(data.bookId, data.nome, data.whatsapp, data.tipo);
+  } else {
+    json = getBooks();
   }
+
+  if (cb) {
+    return ContentService.createTextOutput(cb + '(' + json + ');')
+      .setMimeType(ContentService.MimeType.JAVASCRIPT);
+  }
+  return ContentService.createTextOutput(json)
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 function fetchCoverUrl(isbn) {
