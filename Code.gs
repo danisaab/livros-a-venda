@@ -77,8 +77,8 @@ function getBooks() {
     const capaUrl = row[6] ? String(row[6]) : fetchCoverUrl(isbn);
     books.push({
       id: String(row[0]),
-      titulo: row[1],
-      autor: row[2],
+      titulo: String(row[1]),
+      autor: String(row[2]),
       preco: row[3],
       status: row[4],
       isbn: isbn,

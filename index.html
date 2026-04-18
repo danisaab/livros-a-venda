@@ -376,8 +376,8 @@
 </header>
 
 <nav class="filters" role="tablist" aria-label="Filtrar por status">
-  <button class="filter-btn" data-filter="Disponível" role="tab" aria-selected="false">Disponíveis</button>
   <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">Todos</button>
+  <button class="filter-btn" data-filter="Disponível" role="tab" aria-selected="false">Disponíveis</button>
   <button class="filter-btn" data-filter="Reservado" role="tab" aria-selected="false">Reservados</button>
   <button class="filter-btn" data-filter="Vendido"   role="tab" aria-selected="false">Vendidos</button>
 </nav>
@@ -420,7 +420,7 @@
     var isAvail = book.status === 'Disponível';
 
     var coverHtml = book.capaUrl
-      ? '<img src="' + book.capaUrl + '" alt="Capa de ' + book.titulo.replace(/"/g, '&quot;') + '" loading="lazy" class="cover-img">'
+      ? '<img src="' + book.capaUrl + '" alt="Capa de ' + String(book.titulo).replace(/"/g, '&quot;') + '" loading="lazy" class="cover-img">'
       : '<div class="cover-placeholder"></div>';
 
     var interestHtml = '';
